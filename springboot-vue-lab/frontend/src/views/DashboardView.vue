@@ -45,8 +45,10 @@ onMounted(loadData)
 <template>
   <div v-loading="loading" class="content-grid">
     <section v-for="item in stats" :key="item.label" class="panel stat-card">
-      <el-icon size="26" color="var(--primary)"><component :is="item.icon" /></el-icon>
-      <span>{{ item.label }}</span>
+      <div class="stat-title">
+        <el-icon size="26" color="var(--primary)"><component :is="item.icon" /></el-icon>
+        <span>{{ item.label }}</span>
+      </div>
       <strong>{{ item.value }}</strong>
     </section>
 

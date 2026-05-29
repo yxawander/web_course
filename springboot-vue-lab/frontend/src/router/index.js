@@ -52,4 +52,19 @@ const router = createRouter({
   ],
 })
 
+router.beforeEach((to) => {
+  const currentUser = localStorage.getItem('currentUser')
+  const isAuthPage = ['/login', '/register', '/forgot'].includes(to.path)
+
+  if (to.path.startsWith('/app') && !currentUser) {
+    return '/login'
+  }
+
+  if (isAuthPage && currentUser) {
+    return '/app/dashboard'
+  }
+
+  return true
+})
+
 export default router

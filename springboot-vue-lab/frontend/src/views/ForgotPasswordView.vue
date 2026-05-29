@@ -10,6 +10,7 @@ const formRef = ref()
 const loading = ref(false)
 const form = reactive({
   username: '',
+  oldPassword: '',
   newPassword: '',
   confirmPassword: '',
 })
@@ -24,6 +25,7 @@ const validateConfirm = (_rule, value, callback) => {
 
 const rules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  oldPassword: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
   newPassword: [{ required: true, message: '请输入新密码', trigger: 'blur' }],
   confirmPassword: [
     { required: true, message: '请再次输入新密码', trigger: 'blur' },
@@ -56,11 +58,11 @@ const submit = async () => {
         <span>密码管理</span>
       </div>
       <div class="auth-title">
-        <h1>找回与修改密码</h1>
-        <p>通过用户名确认账号，并重新设置安全密码。</p>
+        <h1>修改账号密码</h1>
+        <p>输入旧密码完成身份确认，再设置新的登录密码。</p>
       </div>
       <div class="auth-highlights">
-        <div class="highlight-item"><strong>表单验证</strong><span>用户名、新密码、确认密码必填。</span></div>
+        <div class="highlight-item"><strong>身份确认</strong><span>旧密码正确后才能提交修改。</span></div>
         <div class="highlight-item"><strong>一致性判断</strong><span>两次密码不同无法提交。</span></div>
         <div class="highlight-item"><strong>实时生效</strong><span>修改成功后可立即使用新密码登录。</span></div>
       </div>
@@ -68,10 +70,13 @@ const submit = async () => {
     <div class="auth-panel">
       <el-card class="auth-card" shadow="never">
         <h2>修改密码</h2>
-        <p class="subtitle">输入用户名并设置新密码</p>
+        <p class="subtitle">请输入旧密码和新密码</p>
         <el-form ref="formRef" :model="form" :rules="rules" label-position="top" size="large">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="form.username" :prefix-icon="User" />
+          </el-form-item>
+          <el-form-item label="旧密码" prop="oldPassword">
+            <el-input v-model="form.oldPassword" :prefix-icon="Lock" type="password" show-password />
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
             <el-input v-model="form.newPassword" :prefix-icon="Lock" type="password" show-password />

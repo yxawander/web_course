@@ -257,9 +257,17 @@ a {
   padding: 20px;
 }
 
+.stat-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+}
+
 .stat-card span {
   color: var(--muted);
   font-size: 13px;
+  line-height: 1;
 }
 
 .stat-card strong {

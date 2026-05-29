@@ -2,6 +2,7 @@ package com.example.backend.dto;
 
 public class PasswordRequest {
     private String username;
+    private String oldPassword;
     private String newPassword;
     private String confirmPassword;
 
@@ -11,6 +12,14 @@ public class PasswordRequest {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public String getNewPassword() {

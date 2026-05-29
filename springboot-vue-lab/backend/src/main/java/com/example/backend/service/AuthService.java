@@ -58,11 +58,18 @@ public class AuthService {
         if (!StringUtils.hasText(request.getUsername())) {
             throw new IllegalArgumentException("用户名不能为空");
         }
+        if (!StringUtils.hasText(request.getOldPassword())) {
+            throw new IllegalArgumentException("旧密码不能为空");
+        }
         if (!StringUtils.hasText(request.getNewPassword()) || !request.getNewPassword().equals(request.getConfirmPassword())) {
             throw new IllegalArgumentException("两次输入的新密码不一致");
         }
-        if (loginUserMapper.findByUsername(request.getUsername()) == null) {
+        LoginUser user = loginUserMapper.findByUsername(request.getUsername());
+        if (user == null) {
             throw new IllegalArgumentException("用户不存在");
+        }
+        if (!request.getOldPassword().equals(user.getPassword())) {
+            throw new IllegalArgumentException("旧密码不正确");
         }
         loginUserMapper.updatePassword(request.getUsername(), request.getNewPassword());
     }

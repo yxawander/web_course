@@ -77,7 +77,7 @@ const submit = async () => {
           <el-button type="primary" size="large" :loading="loading" style="width: 100%" @click="submit">登录系统</el-button>
           <div class="auth-actions">
             <el-link type="primary" @click="router.push('/register')">注册账号</el-link>
-            <el-link type="info" @click="router.push('/forgot')">忘记密码</el-link>
+            <el-link type="info" @click="router.push('/forgot')">修改密码</el-link>
           </div>
         </el-form>
       </el-card>

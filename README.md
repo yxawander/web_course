@@ -6,7 +6,7 @@
 
 - 登录：用户名和密码校验，成功后进入系统首页。
 - 注册：校验用户名、密码、电子邮箱和出生日期。
-- 修改密码：校验新密码和确认密码是否一致。
+- 修改密码：校验用户名、旧密码、新密码和确认密码。
 - 首页日历：展示日历、今日待办、近期文章和数据统计。
 - 用户管理：从数据库读取一般用户信息，使用 Element Plus 表格和分页展示。
 - 文章管理：支持文章查询、新增、编辑、删除和发布状态维护。
@@ -162,7 +162,7 @@ http://localhost:5173
 ```text
 POST /api/auth/login       登录
 POST /api/auth/register    注册
-POST /api/auth/password    修改密码
+POST /api/auth/password    修改密码，需校验旧密码
 GET  /api/dashboard/summary 首页统计
 GET  /api/users            用户列表分页
 GET  /api/articles         文章列表分页
