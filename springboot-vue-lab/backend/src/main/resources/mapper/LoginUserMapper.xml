@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.LoginUserMapper">
+    <select id="findByUsername" resultType="LoginUser">
+        SELECT id, username, password, email, birthday, nickname, created_at
+        FROM login_user
+        WHERE username = #{username}
+    </select>
+
+    <insert id="insert" parameterType="LoginUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO login_user (username, password, email, birthday, nickname)
+        VALUES (#{username}, #{password}, #{email}, #{birthday}, #{nickname})
+    </insert>
+
+    <update id="updatePassword">
+        UPDATE login_user
+        SET password = #{password}
+        WHERE username = #{username}
+    </update>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM login_user
+    </select>
+</mapper>

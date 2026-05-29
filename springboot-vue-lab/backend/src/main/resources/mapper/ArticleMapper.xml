@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.backend.mapper.ArticleMapper">
+    <sql id="whereKeyword">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (title LIKE CONCAT('%', #{keyword}, '%')
+                OR category LIKE CONCAT('%', #{keyword}, '%')
+                OR author LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </sql>
+
+    <select id="findPage" resultType="Article">
+        SELECT id, title, category, author, summary, status, publish_time, created_at
+        FROM article
+        <include refid="whereKeyword"/>
+        ORDER BY created_at DESC, id DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="findRecent" resultType="Article">
+        SELECT id, title, category, author, summary, status, publish_time, created_at
+        FROM article
+        ORDER BY created_at DESC, id DESC
+        LIMIT #{size}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM article
+        <include refid="whereKeyword"/>
+    </select>
+
+    <select id="countAll" resultType="long">
+        SELECT COUNT(*) FROM article
+    </select>
+
+    <insert id="insert" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO article (title, category, author, summary, status, publish_time)
+        VALUES (#{title}, #{category}, #{author}, #{summary}, #{status}, NOW())
+    </insert>
+
+    <update id="update" parameterType="Article">
+        UPDATE article
+        SET title = #{title},
+            category = #{category},
+            author = #{author},
+            summary = #{summary},
+            status = #{status},
+            publish_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM article WHERE id = #{id}
+    </delete>
+</mapper>
